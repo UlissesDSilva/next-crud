@@ -1,6 +1,15 @@
 import Layout from "../components/Layout";
+import Table from "../components/Table";
+import Client from "../core/Client";
 
 export default function Home() {
+
+  const clients = [
+    new Client('Ulisses', 27, '1'),
+    new Client('Mirella', 24, '2'),
+    new Client('Dilu', 27, '3', false),
+  ]
+
   return (
     <div className={`
       flex h-screen 
@@ -10,7 +19,7 @@ export default function Home() {
     `}
     >
       <Layout title="Cadastro">
-        <span>Conteudo</span>
+        <Table clients={clients}></Table>
       </Layout>
     </div>
   )
