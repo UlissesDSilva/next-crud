@@ -24,7 +24,7 @@ export default function Table(props: TableProps) {
             <td className="flex justify-center items-center">
               {client.editable ? <ButtonEdit id={client.id} client={client}/> : false}
               {client.editable ? <ButtonDelete id={client.id} client={client}/> : false}
-            </td> : false          
+            </td> : <td className="flex justify-center items-center"></td>       
           }
         </tr>
       )
