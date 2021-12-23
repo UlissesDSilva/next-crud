@@ -4,6 +4,7 @@ import { IconDelete, IconEdit } from './Icons'
 interface ButtonProps{
   id: string
   client?: Client
+  icon?: String
 }
 
 function editClient (client?: Client) {
@@ -32,6 +33,22 @@ export const ButtonDelete = (props: ButtonProps) => {
       onClick={() => deleteClient(props.client)}
     >
       {IconDelete}
+    </button>
+  )
+}
+
+export const ButtonRegister = () => {
+  return(
+    <button
+      className={`
+        bg-gradient-to-r from-blue-400 to-blue-700
+        text-white 
+        px-4 py-2 
+        rounded-md
+        mb-4
+      `}
+    >
+      Novo cliente!
     </button>
   )
 }

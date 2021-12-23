@@ -1,6 +1,7 @@
 import Layout from "../components/Layout";
 import Table from "../components/Table";
 import Client from "../core/Client";
+import { ButtonRegister } from '../components/Buttons';
 
 export default function Home() {
 
@@ -19,6 +20,9 @@ export default function Home() {
     `}
     >
       <Layout title="Cadastro">
+        <div className="flex justify-end">
+          <ButtonRegister/>
+        </div>
         <Table clients={clients}></Table>
       </Layout>
     </div>
