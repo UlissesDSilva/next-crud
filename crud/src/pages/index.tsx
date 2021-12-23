@@ -21,7 +21,7 @@ export default function Home() {
     >
       <Layout title="Cadastro">
         <div className="flex justify-end">
-          <ButtonRegister/>
+          <ButtonRegister route="/register" text="Novo cliente"/>
         </div>
         <Table clients={clients}></Table>
       </Layout>

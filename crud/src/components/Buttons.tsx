@@ -1,10 +1,13 @@
 import Client from '../core/Client'
+import Link from 'next/link';
 import { IconDelete, IconEdit } from './Icons'
 
 interface ButtonProps{
-  id: string
+  id?: string
   client?: Client
-  icon?: String
+  icon?: string
+  text?: string
+  route?: string
 }
 
 function editClient (client?: Client) {
@@ -37,18 +40,20 @@ export const ButtonDelete = (props: ButtonProps) => {
   )
 }
 
-export const ButtonRegister = () => {
+export const ButtonRegister = (props: ButtonProps) => {
   return(
-    <button
-      className={`
-        bg-gradient-to-r from-blue-400 to-blue-700
-        text-white 
-        px-4 py-2 
-        rounded-md
-        mb-4
-      `}
-    >
-      Novo cliente!
-    </button>
+    <Link href={props.route}>
+      <button
+        className={`
+          bg-gradient-to-r from-blue-400 to-blue-700
+          text-white 
+          px-4 py-2 
+          rounded-md
+          mb-4
+        `}
+      >
+        {props.text}
+      </button>
+    </Link>
   )
 }
