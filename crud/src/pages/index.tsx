@@ -1,30 +1,28 @@
 import Layout from "../components/Layout";
 import Table from "../components/Table";
 import Client from "../core/Client";
-import { ButtonRegister } from '../components/Buttons';
+import { Button } from '../components/Buttons';
+import Repository from "../core/Repository";
+import Collection from "../backend/db/Collection";
+import { useEffect, useState } from "react";
 
 export default function Home() {
 
-  const clients = [
-    new Client('Ulisses', 27, '1'),
-    new Client('Mirella', 24, '2'),
-    new Client('Dilu', 27, '3', false),
-  ]
+  const repo: Repository = new Collection()
+
+  const [clients, setClients] = useState<Client[]>([])
+
+  useEffect(() => {
+    repo.getAll()
+      .then(setClients)
+  }, [])
 
   return (
-    <div className={`
-      flex h-screen 
-      justify-center 
-      items-center 
-      bg-gradient-to-r from-purple-500 to-blue-600
-    `}
-    >
-      <Layout title="Cadastro">
-        <div className="flex justify-end">
-          <ButtonRegister route="/register" text="Novo cliente"/>
-        </div>
-        <Table clients={clients}></Table>
-      </Layout>
-    </div>
+    <Layout title="Cadastro">
+      <div className="flex justify-end">
+        <Button route={`/register/_`} text="Novo cliente" color="blue"/>
+      </div>
+      <Table clients={clients}></Table>
+    </Layout>
   )
 }

@@ -1,10 +1,9 @@
 import Client from "../core/Client";
-import { ButtonEdit, ButtonDelete } from './Buttons'
+import { ButtonIcon } from './Buttons'
+import { IconDelete, IconEdit  } from './Icons'
 
 interface TableProps {
   clients: Client[],
-  editClient?: () => void
-  deleteClient?: () => void
 }
 
 export default function Table(props: TableProps) {
@@ -22,8 +21,8 @@ export default function Table(props: TableProps) {
           <td className="text-left p-2">{client.age}</td>
           {showActions ? 
             <td className="flex justify-center items-center">
-              {client.editable ? <ButtonEdit id={client.id} client={client}/> : false}
-              {client.editable ? <ButtonDelete id={client.id} client={client}/> : false}
+              {client.editable ? <ButtonIcon id={client.id}  icon={IconEdit} color="green"/> : false}
+              {client.editable ? <ButtonIcon id={client.id} icon={IconDelete} color="red"/> : false}
             </td> : <td className="flex justify-center items-center"></td>       
           }
         </tr>

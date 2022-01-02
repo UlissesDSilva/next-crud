@@ -1,56 +1,50 @@
-import Client from '../core/Client'
 import Link from 'next/link';
-import { IconDelete, IconEdit } from './Icons'
+import Collection from '../backend/db/Collection';
+import Client from '../core/Client';
+import Repository from '../core/Repository';
 
 interface ButtonProps{
-  id?: string
-  client?: Client
-  icon?: string
+  id?: string | string []
+  icon?: any
   text?: string
   route?: string
+  color?: string
+  client?: Client
 }
 
-function editClient (client?: Client) {
-  console.log(client)  
-}
+export const ButtonIcon = (props: ButtonProps) => {
+  const id = props.id
 
-function deleteClient (client?: Client) {
-  console.log(`Excluindo ${client}`)
-}
-
-export const ButtonEdit = (props: ButtonProps) => {
   return(
-    <button 
-      className={`flex justify-center items-center text-green-600 rounded-full hover:bg-purple-50 p-1 m-1`}
-      onClick={() => editClient(props.client)}
-    >
-      {IconEdit}
-    </button>
+    <Link href={`/register/${id}`}>
+      <button className={`flex justify-center items-center text-${props.color}-600 rounded-full hover:bg-purple-50 p-1 m-1`}>
+        {props.icon}
+      </button>   
+    </Link>
   )
 }
 
-export const ButtonDelete = (props: ButtonProps) => {
-  return(
-    <button 
-      className={`flex justify-center items-center text-red-500 rounded-full hover:bg-purple-50 p-1 m-1`}
-      onClick={() => deleteClient(props.client)}
-    >
-      {IconDelete}
-    </button>
-  )
+const repo: Repository = new Collection()
+
+function save(client: Client) {
+  repo.save(client)
 }
 
-export const ButtonRegister = (props: ButtonProps) => {
+export const Button = (props: ButtonProps) => {
+
+  const color = props.color ?? "gray"
   return(
     <Link href={props.route}>
       <button
         className={`
-          bg-gradient-to-r from-blue-400 to-blue-700
+          bg-gradient-to-r from-${color}-400 to-${color}-700
           text-white 
           px-4 py-2 
           rounded-md
           mb-4
+          mr-2
         `}
+        onClick={() => save(props.client)}
       >
         {props.text}
       </button>
