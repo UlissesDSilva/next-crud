@@ -5,17 +5,11 @@ import { Button } from '../components/Buttons';
 import Repository from "../core/Repository";
 import Collection from "../backend/db/Collection";
 import { useEffect, useState } from "react";
+import useClients from "../hooks/useClients";
 
 export default function Home() {
 
-  const repo: Repository = new Collection()
-
-  const [clients, setClients] = useState<Client[]>([])
-
-  useEffect(() => {
-    repo.getAll()
-      .then(setClients)
-  }, [])
+  const { client, clients, visibleTable, selectClient, deleteClient, newClient, saveClient, showTable  } = useClients()
 
   return (
     <Layout title="Cadastro">
