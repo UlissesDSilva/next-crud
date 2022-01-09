@@ -1,9 +1,11 @@
 import Client from "../core/Client";
-import { ButtonIcon } from './Buttons'
+import { ButtonAction } from './Buttons'
 import { IconDelete, IconEdit  } from './Icons'
 
 interface TableProps {
-  clients: Client[],
+  clients: Client[]
+  selectionClient?: (client: Client) => void
+  deleteClient?: (client: Client) => void
 }
 
 export default function Table(props: TableProps) {
@@ -12,6 +14,7 @@ export default function Table(props: TableProps) {
   const renderRows = (mapClients) => {
     return mapClients?.map((client, index) => {
       const showActions = client.editable
+      console.log(showActions)
       return(
         <tr key={client.id}
             className={`${index % 2 === 0 ? 'bg-purple-200' : 'bg-purple-100'}`}
@@ -21,8 +24,8 @@ export default function Table(props: TableProps) {
           <td className="text-left p-2">{client.age}</td>
           {showActions ? 
             <td className="flex justify-center items-center">
-              {client.editable ? <ButtonIcon id={client.id}  icon={IconEdit} color="green"/> : false}
-              {client.editable ? <ButtonIcon id={client.id} icon={IconDelete} color="red"/> : false}
+              {showActions ? <ButtonAction client={client} icon={IconEdit} color="green" actionClient={props.selectionClient}/> : false}
+              {showActions ? <ButtonAction client={client} icon={IconDelete} color="red" actionClient={props.deleteClient}/> : false}
             </td> : <td className="flex justify-center items-center"></td>       
           }
         </tr>
@@ -31,8 +34,6 @@ export default function Table(props: TableProps) {
   }
 
   return(
-
-
     <table className="w-full rounded-xl overflow-hidden">
       <thead className={`
         text-gray-100

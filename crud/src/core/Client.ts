@@ -1,25 +1,25 @@
 export default class Client {
-  private id: string
-  private name: string
-  private age: number
-  private editable: boolean
+  #id: string
+  #name: string
+  #age: number
+  #editable: boolean
 
-  constructor(name: string, age: number, id: string = null, editable: boolean = true){
-    this.name = name
-    this.age = age
-    this.id = id
-    this.editable = editable
+  constructor(name: string, age: number, id: string = null, editable: boolean = false){
+    this.#name = name
+    this.#age = age
+    this.#id = id
+    this.#editable = editable
   }
 
   static emptyClient() {
-    return new Client("", 0)
+    return new Client("", 0, null, false)
   }
 
-  get getId() {return this.id}
+  get id() {return this.#id}
 
-  get getName() {return this.name}
+  get name() {return this.#name}
 
-  get getAge() {return this.age}
+  get age() {return this.#age}
 
-  get getEditable() {return this.editable}  
+  get editable() {return this.#editable}  
 }

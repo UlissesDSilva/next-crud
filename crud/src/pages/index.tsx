@@ -1,28 +1,37 @@
 import Layout from "../components/Layout";
 import Table from "../components/Table";
-import Client from "../core/Client";
 import { Button } from '../components/Buttons';
-import Repository from "../core/Repository";
-import Collection from "../backend/db/Collection";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import useClients from "../hooks/useClients";
+import Form from "../components/Form2";
 
 export default function Home() {
 
-  const repo: Repository = new Collection()
+  const { 
+    client,
+    clients,
+    view,
+    changeViewTable,
+    getAllClients,
+    selectionClient,
+    deleteClient,
+    saveClient,
+    newClient  
+  } = useClients()
 
-  const [clients, setClients] = useState<Client[]>([])
-
-  useEffect(() => {
-    repo.getAll()
-      .then(setClients)
-  }, [])
+  useEffect(getAllClients, [])
 
   return (
     <Layout title="Cadastro">
       <div className="flex justify-end">
-        <Button route={`/register/_`} text="Novo cliente" color="blue"/>
+        {view === "table" ? <Button text="Novo cliente" color="blue" onclick={newClient}/> : false}
+        
       </div>
-      <Table clients={clients}></Table>
+      { view === 'table' ?  
+          <Table clients={clients} selectionClient={selectionClient} deleteClient={deleteClient}></Table> : 
+          <Form onclick={changeViewTable} changeClient={saveClient} client={client}/>
+      }
+      
     </Layout>
   )
 }

@@ -4,13 +4,13 @@ import {firebase} from "../config";
 
 export default class Collection implements Repository{
 
-  conversor = {
+  #conversor = {
     //recebe um objeto x e devolve um objeto apto a ser persistido no fireStore
     toFirestore(client: Client) {
       return {
-        name: client.getName,
-        age: client.getAge,
-        editable: client.getEditable
+        name: client.name,
+        age: client.age,
+        editable: client.editable
       }
     },
     //devolve um snapshot e um option
@@ -22,8 +22,8 @@ export default class Collection implements Repository{
   }
 
   async save(client: Client): Promise<Client> {
-    if(client?.getId) {
-      await this.collectionClient().doc(client.getId).set(client)
+    if(client?.id) {
+      await this.collectionClient().doc(client.id).set(client)
       return client
     }
     const docRef = await this.collectionClient().add(client)
@@ -32,7 +32,7 @@ export default class Collection implements Repository{
   }
 
   async delete(client: Client): Promise<void> {
-      return this.collectionClient().doc(client.getId).delete()
+      return this.collectionClient().doc(client.id).delete()
   }
 
   async getClient(id: string): Promise<any> {
@@ -46,6 +46,6 @@ export default class Collection implements Repository{
   }
 
   private collectionClient(){
-    return firebase.firestore().collection('clients').withConverter(this.conversor)
+    return firebase.firestore().collection('clients').withConverter(this.#conversor)
   }
 }
